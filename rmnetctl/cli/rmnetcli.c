@@ -354,6 +354,7 @@ static int rmnet_api_call(int argc, char *argv[])
 		if (!egress_dev_name) {
 			print_rmnet_api_status(RMNETCTL_LIB_ERR,
 			RMNETCTL_CFG_FAILURE_EGRESS_DEV_NAME_NULL);
+			rmnetctl_cleanup(handle);
 			return RMNETCTL_LIB_ERR;
 		}
 		return_code = rmnet_get_logical_ep_config(handle,
@@ -363,6 +364,7 @@ static int rmnet_api_call(int argc, char *argv[])
 			printf("rmnet_mode is %u\n", rmnet_mode);
 			printf("egress_dev_name is %s\n", egress_dev_name);
 		}
+		free(egress_dev_name);
 	} else if (!strcmp(*argv, "addvnctcflow")) {
 		_RMNETCLI_CHECKNULL(argv[1]);
 		_RMNETCLI_CHECKNULL(argv[2]);
